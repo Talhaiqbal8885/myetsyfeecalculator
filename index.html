@@ -322,6 +322,14 @@
     font-size: 0.75rem;
     color: var(--text-soft);
   }
+  .legend-item .lname{
+    font-weight: 500;
+  }
+  .legend-item .lval{
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
   .legend-dot{
     width: 9px; height:9px; border-radius:50%;
   }
@@ -422,9 +430,9 @@
         <div class="donut-hole" id="donutHole">Enter your numbers and hit Calculate</div>
       </div>
       <div class="legend">
-        <div class="legend-item"><span class="legend-dot" style="background:var(--profit-color)"></span>Profit</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--fees-color)"></span>Etsy fees</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--cost-color)"></span>Prod. cost</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--profit-color)"></span><span class="lname">Profit</span>&nbsp;<span class="lval" id="lProfit">$0.00</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--fees-color)"></span><span class="lname">Etsy fees</span>&nbsp;<span class="lval" id="lFees">$0.00</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--cost-color)"></span><span class="lname">Prod. cost</span>&nbsp;<span class="lval" id="lCost">$0.00</span></div>
       </div>
     </div>
   </div>
@@ -512,6 +520,10 @@
     )`;
     $('donutHole').textContent = '';
 
+    $('lProfit').textContent = fmt(Math.max(profit,0));
+    $('lFees').textContent = fmt(totalEtsyFees);
+    $('lCost').textContent = fmt(cost);
+
     donut.classList.remove('pop');
     void donut.offsetWidth;
     donut.classList.add('pop');
@@ -519,7 +531,7 @@
 
   function resetToZero(){
     $('rAdsRow').style.display = $('adsToggle').checked ? 'flex' : 'none';
-    ['rRevenue','rCost','rListing','rTransaction','rProcessing','rAds','rTotalCost','rProfit','sProfit','sFees'].forEach(id => $(id).textContent = '$0.00');
+    ['rRevenue','rCost','rListing','rTransaction','rProcessing','rAds','rTotalCost','rProfit','sProfit','sFees','lProfit','lFees','lCost'].forEach(id => $(id).textContent = '$0.00');
     $('sMargin').textContent = '0%';
     $('donut').style.background = 'conic-gradient(var(--border) 0% 100%)';
     $('donut').classList.remove('pop');
